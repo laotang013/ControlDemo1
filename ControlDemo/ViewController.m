@@ -222,7 +222,7 @@
     UILabel *testLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 50, 0, 0)];
     testLabel.backgroundColor = [UIColor whiteColor];
     testLabel.text = @"我们都有一个家啊，名字叫中国，家里攀着两条龙";
-    testLabel.font = [UIFont systemFontOfSize:20];
+    testLabel.font = [UIFont systemFontOfSize:15];
     testLabel.textColor = [UIColor blackColor];
     
     [testLabel sizeThatFits:CGSizeMake(20, 20)];//会计算出最优的 size 但是不会改变 自己的 size，个人认为这个就是 label 自适应大小有用别的没什么用
@@ -231,6 +231,20 @@
     [testLabel sizeToFit];//会计算出最优的 size 而且会改变自己的size
     NSLog(@"testLabel sizeToFit frame = %@",NSStringFromCGRect(testLabel.frame));
     //[self.view  addSubview:testLabel];
+}
+
+//UIScrollView
+-(void)test6
+{
+    /*
+     http://blog.csdn.net/ccf0703/article/details/7595014
+     UIScrollView有一个frame属性，同时UIScrollView还具有contentSize、contentOffset和contentInset属性
+     UIScrollView的subView他的左右上下是相对于UIScrollView的ContentSize而不是bounds来决定的。
+        API讲解: http://tech.glowing.com/cn/practice-in-uiscrollview/
+             1)- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+               这个方法在任何方式触发contentOffset变化的时候都会被调用(包括用户拖动,减速过程,直接通过代码设置等)
+                可以用于监控contentOffset的变化,并根据当前contentOffset对其他View做出随动调整。
+     */
 }
 
 -(void)setPreferredContentSize:(CGSize)preferredContentSize
