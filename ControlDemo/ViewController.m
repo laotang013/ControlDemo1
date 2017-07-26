@@ -11,13 +11,16 @@
 #define MAS_SHORTHAND_GLOBALS
 #import <Masonry/Masonry.h>
 #import "ViewController.h"
-
-@interface ViewController ()<UITextFieldDelegate>
+#import <objc/objc.h>
+#import <objc/runtime.h>
+@interface ViewController ()<UITextFieldDelegate,UIPopoverPresentationControllerDelegate>
 /**label*/
 @property(nonatomic,strong)UILabel *testLabel;
 
 /**textFiled*/
 @property(nonatomic,strong)UITextField *textFiled;
+/**testButton*/
+@property(nonatomic,strong)UIButton *testButton;
 @end
 
 @implementation ViewController
@@ -25,6 +28,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    UIButton *testButton = [[UIButton alloc] init];
+    [testButton addTarget:self
+                   action:@selector(onClick)
+         forControlEvents:UIControlEventTouchUpInside];
+    [testButton setTitle:@"点击" forState:UIControlStateNormal];
+    [testButton setBackgroundColor:[UIColor orangeColor]];
+    [self.view addSubview:testButton];
+    
+    [testButton makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view).offset(100);
+        make.left.equalTo(self.view).offset(50);
+        make.size.mas_equalTo(CGSizeMake(50, 50));
+    }];
+    self.testButton = testButton;
+    
+    [self test5];
 }
 
 -(void)test1
@@ -64,7 +83,7 @@
     
     
 }
-
+//UITextField
 -(void)test2
 {
     //http://www.jianshu.com/p/4d38889500df
@@ -108,6 +127,193 @@
     [textFiled addTarget:self action:@selector(textFieldDidChange) forControlEvents:UIControlEventEditingChanged];
 }
 
+-(void)onClick
+{
+    [self test4];
+}
+
+//UIAlertController
+-(void)test3
+{
+    /*
+     * UIAlertController以一种模块化替换的方式来代替这两货(UIAlertView以及UIActionSheet)的功能和作用
+      UIAlertAction的实例 你可以将动作按钮添加到控制器上。UIAlertAction由标题字符串、样式、以及当用户选中该动作时运行的代码块组成。通过AlertActionStyle你可以选择如下三种动作样式：常规(default)、取消(cancel)以及警示(destruective)。
+     */
+    //1.创建 2.显示
+    //按钮显示的次序取决于他们添加到对话框控制器上的次序，
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"标题" message:@"创建第一个按钮" preferredStyle:UIAlertControllerStyleAlert];
+    [alertVC addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"登录";
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(alertTextFieldDidChange:) name:UITextFieldTextDidChangeNotification object:textField];
+    }];
+    [alertVC addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+       textField.placeholder = @"密码";
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        NSLog(@"点击了取消按钮");
+    }];
+    UIAlertAction *comformAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        NSLog(@"点击了确认按钮");
+        UITextField *login = alertVC.textFields.firstObject;
+        NSLog(@"login:%@", login.text);
+        //释放通知
+        [[NSNotificationCenter defaultCenter]removeObserver:self name:UITextFieldTextDidChangeNotification object:nil];
+    }];
+    comformAction.enabled = NO;
+    //修改按钮的颜色字体
+    [cancelAction setValue:[UIColor redColor] forKey:@"titleTextColor"];
+    NSArray *array =  [self getPropertiesStr:@"UIAlertAction"];
+    NSLog(@"array %@",array);
+    [alertVC addAction:cancelAction];
+    [alertVC addAction:comformAction];
+        
+    [self presentViewController:alertVC animated:YES completion:nil];
+}
+
+//给文本框添加一个通知 监听文本的长度变化。
+-(void)alertTextFieldDidChange:(NSNotification *)notifaction
+{
+    UIAlertController *alertVC = (UIAlertController *)self.presentedViewController;
+    if (alertVC) {
+        UITextField *login = alertVC.textFields.firstObject;
+        UIAlertAction *comfirm = alertVC.actions.lastObject;
+        comfirm.enabled = login.text.length > 2;
+    }
+}
+//UIAlertControllerStyleActionSheet
+/*
+  如果上拉菜单中有取消按钮的话，那么他永远都会出现在菜单底部。
+ */
+
+
+//UIPopoverPresentationController
+-(void)test4
+{
+    //http://blog.csdn.net/u013346305/article/details/52174799
+    //UIPopoverPresentationController 是个弹出的控件
+    UIViewController *functionlistVC = [[UIViewController alloc]init];
+    functionlistVC.modalPresentationStyle = UIModalPresentationPopover;
+    UIPopoverPresentationController *pover = functionlistVC.popoverPresentationController;
+    pover.delegate = self;
+    //是指弹出时所参照的视图 与弹框的位置有关
+    pover.sourceView = self.testButton;
+    //是指弹出时参照视图的大小,与弹框的位置有关。
+    pover.sourceRect = self.testButton.bounds;
+    pover.backgroundColor = [UIColor orangeColor];
+    //是弹框的箭头方向。
+    pover.permittedArrowDirections = UIPopoverArrowDirectionUp;
+    [self presentViewController:functionlistVC animated:YES completion:nil];
+    
+}
+
+//-(CGSize)preferredContentSize
+//{
+//    if (self.presentedViewController && self.view != nil) {
+//        CGSize size = CGSizeMake(50, 50);
+//        return size;
+//    }else
+//    {
+//        return  [super preferredContentSize];
+//    }
+//}
+
+-(void)test5
+{
+    UILabel *testLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 50, 0, 0)];
+    testLabel.backgroundColor = [UIColor whiteColor];
+    testLabel.text = @"我们都有一个家啊，名字叫中国，家里攀着两条龙";
+    testLabel.font = [UIFont systemFontOfSize:20];
+    testLabel.textColor = [UIColor blackColor];
+    
+    [testLabel sizeThatFits:CGSizeMake(20, 20)];//会计算出最优的 size 但是不会改变 自己的 size，个人认为这个就是 label 自适应大小有用别的没什么用
+    NSLog(@"testLabel sizeThatFits frame = %@", NSStringFromCGRect(testLabel.frame));
+    NSLog(@"best size = %@",NSStringFromCGSize([testLabel sizeThatFits:CGSizeMake(20, 20)]));
+    [testLabel sizeToFit];//会计算出最优的 size 而且会改变自己的size
+    NSLog(@"testLabel sizeToFit frame = %@",NSStringFromCGRect(testLabel.frame));
+    //[self.view  addSubview:testLabel];
+}
+
+-(void)setPreferredContentSize:(CGSize)preferredContentSize
+{
+    super.preferredContentSize = preferredContentSize;
+}
+
+
+#pragma mark - **************** UIPopoverPresentationControllerDelegate
+
+//默认返回的是覆盖整个屏幕,需要设置成UIModalPresentationNone
+-(UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller
+{
+    return UIModalPresentationNone;
+}
+
+//设置点击蒙版是否消失 默认为YES
+-(BOOL)popoverPresentationControllerShouldDismissPopover:(UIPopoverPresentationController *)popoverPresentationController
+{
+    return YES;
+}
+
+//弹出视图消失后调用的方法.
+-(void)popoverPresentationControllerDidDismissPopover:(UIPopoverPresentationController *)popoverPresentationController
+{
+    
+}
+
+// 动态的获取某一个类的属性.
+- (NSArray *)getProperties:(NSString *)str
+{
+    unsigned int count;
+    
+    // 获取一个类中的属性
+    objc_property_t *properties = class_copyPropertyList(NSClassFromString(str), &count);
+    
+    NSMutableArray *array = [NSMutableArray array];
+    
+    // 遍历类中的属性,将每一个属性值都转换成 OC 的字符串
+    for (int i = 0; i < count; i++) {
+        
+        // pro 依然是 C 语言的数据类型
+        objc_property_t pro = properties[i];
+        
+        // 指向C 语言字符串一个指针.
+        const char *name = property_getName(pro);
+        
+        NSString *property = [[NSString alloc] initWithUTF8String:name];
+        
+        NSLog(@"property:%@",property);
+        
+        [array addObject:property];
+    }
+    
+    return array;
+}
+
+
+//获取属性列表包括私有
+- (NSArray *)getPropertiesStr:(NSString *)str
+{
+    //记录属性的个数
+    unsigned int count = 0;
+     NSMutableArray *array = [NSMutableArray array];
+    //获取属性列表
+    Ivar *members = class_copyIvarList([NSClassFromString(str) class], &count);
+    
+    //遍历属性列表
+    for (NSInteger i = 0; i < count; i++) {
+        
+        //取到属性
+        Ivar ivar = members[i];
+        
+        //获取属性名
+        const char *memberName = ivar_getName(ivar);
+        NSString *ivarName = [NSString stringWithFormat:@"%s", memberName];
+        NSLog(@"属性名:%@", ivarName);
+        [array addObject:ivarName];
+    }
+    return array;
+}
+
+
 -(void)textFieldDidChange
 {
     NSLog(@"dd");
@@ -137,7 +343,6 @@
 {
     [self.view endEditing:YES];
 }
-
 
 
 - (void)didReceiveMemoryWarning {
