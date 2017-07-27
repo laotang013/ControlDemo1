@@ -44,6 +44,7 @@
     self.testButton = testButton;
     
     [self test5];
+    [self test9];
 }
 
 -(void)test1
@@ -369,6 +370,28 @@
     [self.view endEditing:YES];
 }
 
+//UINavigationController
+-(void)test9
+{
+    /*
+     1.1 UINavigationBar类提供一种对导航栏层级内容的控制,他是一个栏，最典型的用法是用在屏幕的顶端，
+     包含着各级视图的导航按钮， http://www.jianshu.com/p/f797793d683f
+      1.1.1 UINavigationBar控制着导航栏的背景色(BarTintColor) 背景图片(backgroundImage) 按钮字体颜色(tintColor)
+            标题文本属性:(titleTextAttributes) 半透明:(translucent)
+     1.2 UINavigationItem对象管理展示在导航栏上的按钮和视图，
+         1.2.1UINavgationController并没有navigationItem这样一个直接属性，由于UINavigationController继承于UIViewController而UINavigationController是有这个属性的。
+          1.2.1 UINavigationItem是一个独特的实例，当视图控制器被推到导航控制器中时,他来代表这个视图控制器
+                当第一次访问这个属性的时候它被创建，因此如果你并没有用导航控制器来管理视图控制器，那你不应该访问这个属性。为确保NavigationItem已经配置，你可以在视图控制器中初始化 重写这个属性。创建BarButtonItem。
+          1.3 UINavgationController是一个特殊的视图容器。
+             1.2.2 UINavigationItem有leftBarButtonitem（leftBarButtonItems）和rightBarButtonItem（rightBarButtonItems）
+                    每个属性都可以赋值装有一个UIBarButtonItem对象的数组。
+                 1.2.2.1    UIBarButtonItem是专门给UIToolBar和UINavigationBar定制的类似button的类。
+     
+     */
+    
+    self.navigationItem.title = @"测试导航栏";
+    self.navigationController.navigationBar.barTintColor = [UIColor purpleColor];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
