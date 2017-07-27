@@ -244,6 +244,14 @@
              1)- (void)scrollViewDidScroll:(UIScrollView *)scrollView
                这个方法在任何方式触发contentOffset变化的时候都会被调用(包括用户拖动,减速过程,直接通过代码设置等)
                 可以用于监控contentOffset的变化,并根据当前contentOffset对其他View做出随动调整。
+             2) scrollViewWillEndDragging: withVelocity: targetContentOffset:
+               通过修改targetContentOffset直接修改目标offset为整数页位置。
+            3）重用机制：
+                 3.1）维护一个重用队列
+                 3.2）当元素离开可见范围时,removeFromSuperView并加入重用队列(queue)
+                 3.3)当需要加入新的元素时，先尝试从重用队列中获取可重用的元素并且从可重用的元素队列中移除。
+                 3.4）如果队列为空，新建元素。
+                 
      */
 }
 
