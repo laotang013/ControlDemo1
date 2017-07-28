@@ -395,7 +395,11 @@ collectionView:cellForItemAtIndexPath: // 返回数据的显示cell获取cell必
     
     
 }
-
+//键盘事件
+-(void)test12
+{
+    
+}
 -(void)setPreferredContentSize:(CGSize)preferredContentSize
 {
     super.preferredContentSize = preferredContentSize;
