@@ -366,8 +366,36 @@ collectionView:cellForItemAtIndexPath: // 返回数据的显示cell获取cell必
      4.1滚动切换子视图控制器：
      以腾讯新闻为例子讲解，头部就不再实现了，主要看下如何通过滚动来切换视图，我自己的解决办法是利用UIScrollView，将子视图控制器的根视图添加到上面，通过滚动来切换视图，而头部也是UIScrollView，上面添加按钮，如果点击按钮，可以改变下面UIScrollView的contentOffSet属性来切换视图。
      */
-    [self addChildViewController:nil];
+   
 }
+//UITabBarController
+-(void)test11
+{
+    /*
+     *
+      1.0 UITabBar
+      2.0 UITabBarItem 
+        2.1 UITabBar上面的Tab都对应着一个ViewController,我们可以通过设置ViewController.tabBarItem来改变tabBar上对应的tab显示的内容。
+        2.2 自定义TabBarItem的时候可以显示指定对应的文字和图片。另外UITabBarItem还有一个badgeValue,通过设置该属性可以在其右上角显示一个小的角标。
+     2.3 UITabBar ，如果UITabBarController有N个子控制器,那么UITabBar内部就会有N 个UITabBarItem作为子控件与之对应。
+         UITabBarItem⾥面显⽰什么内容,由对应子控制器的tabBarItem属性来决定
+     3.0 改变UITabBarContoler中当前显示的viewController可以通过以下方法
+        3.0.1 selectedIndex属性 通过该属性可以获得当前选中的ViewController,设置该属性，可以显示viewControllers中对应的index中的ViewController
+        3.0.2 selectedViewController属性 通过该属性可以获取到当前显示的viewController，通过设置该属性可以设置当前选中的viewContrller同时更新selectedIndex。
+     
+         4.0 UITabBarController本身并不会显示任何视图,如果要显示视图则必须设置其ViewControllers属性。默认显示viewControllers[0] 这个属性是一个数组,他维护了所有的UITabBarController的子控制器。为了尽可能减少视图之间的耦合，所有的UITabBarController的子控制器的相关标题、图标等信息均由子控制器自己控制，UITabBarController仅仅作为一个容器存在
+    
+      5.0 UITabBarConroller声明周期:
+           1.把子控制器都添加给TabBarController管理,当程序启动时它只会加载第一个添加的控制器的View。
+           2.切换到第二个界面的时候，先把第一个界面的View移开，在把新的View添加上去,但是第一个View只是被移开没有被销毁。
+     3.重新切换到第一个界面,第一个控制器直接ViewWillAppear，，没有执行viewDidLoad证明了2.中第一个view移除后并没有被销毁（因为它的控制器还存在，有一个强引用引用着它），且第二个界面的view移除后也没有被销毁。无论怎么切换，控制器和view都不会被销毁。
+     UINavigationController和UITabBarController一个通过栈来管理，一个通过普通的数组来进行管理。
+     http://www.jianshu.com/p/b934e6c52918
+     */
+    
+    
+}
+
 -(void)setPreferredContentSize:(CGSize)preferredContentSize
 {
     super.preferredContentSize = preferredContentSize;
