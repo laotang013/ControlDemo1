@@ -59,37 +59,37 @@
 {
     //CGAffineTrans的实现
     [UIView animateWithDuration:2 animations:^{
-        //http://www.jianshu.com/p/ca7f9bc62429
-        //实现以初始位置为基准, 当tx为正值时,会向x轴正方向平移,反之,则向x轴负方向平移;当ty为正值时,会向y轴正方向平移,反之,则向y轴负方向平移
-        // _testLabel.transform = CGAffineTransformMakeTranslation(0, 200);
+       /* http://www.jianshu.com/p/ca7f9bc62429
+        实现以初始位置为基准, 当tx为正值时,会向x轴正方向平移,反之,则向x轴负方向平移;当ty为正值时,会向y轴正方向平移,反之,则向y轴负方向平移
+         _testLabel.transform = CGAffineTransformMakeTranslation(0, 200);
         
-        //CGAffineTransformTranslate实现以一个已经存在的形变为基准,在x轴方向上平移x单位,在y轴方向上平移y单位
-        //_testLabel.transform = CGAffineTransformTranslate(_testLabel.transform, 0, 40);
+        CGAffineTransformTranslate实现以一个已经存在的形变为基准,在x轴方向上平移x单位,在y轴方向上平移y单位
+        _testLabel.transform = CGAffineTransformTranslate(_testLabel.transform, 0, 40);
         
-        //缩放
-        // 当sx为正值时,会在x轴方向上缩放x倍,反之,则在缩放的基础上沿着竖直线翻转;当sy为正值时,会在y轴方向上缩放y倍,反之,则在缩放的基础上沿着水平线翻转
-        // _testLabel.transform = CGAffineTransformMakeScale(-2, 2);
+        缩放
+         当sx为正值时,会在x轴方向上缩放x倍,反之,则在缩放的基础上沿着竖直线翻转;当sy为正值时,会在y轴方向上缩放y倍,反之,则在缩放的基础上沿着水平线翻转
+         _testLabel.transform = CGAffineTransformMakeScale(-2, 2);
         
-        //CGAffineTransformScale实现以一个已经存在的形变为基准,在x轴方向上缩放x倍,在y轴方向上缩放y倍
-        //_testLabel.transform = CGAffineTransformScale(_testLabel.transform, 2, 1);
+        CGAffineTransformScale实现以一个已经存在的形变为基准,在x轴方向上缩放x倍,在y轴方向上缩放y倍
+        _testLabel.transform = CGAffineTransformScale(_testLabel.transform, 2, 1);
         
-        //旋转
-        //实现以初始位置为基准,将坐标系统逆时针旋转angle弧度(弧度=π/180×角度,M_PI弧度代表180角度)
-        //注1: 当angle为正值时,逆时针旋转坐标系统,反之顺时针旋转坐标系统
-        //注2: 逆时针旋转坐标系统的表现形式为对控件进行顺时针旋转
-        //_testLabel.transform = CGAffineTransformMakeRotation(-M_PI);
+        旋转
+        实现以初始位置为基准,将坐标系统逆时针旋转angle弧度(弧度=π/180×角度,M_PI弧度代表180角度)
+        注1: 当angle为正值时,逆时针旋转坐标系统,反之顺时针旋转坐标系统
+        注2: 逆时针旋转坐标系统的表现形式为对控件进行顺时针旋转
+        _testLabel.transform = CGAffineTransformMakeRotation(-M_PI);
         
-        //CGAffineTransformRotate实现以一个已经存在的形变为基准,将坐标系统逆时针旋转angle弧度(弧度=π/180×角度,M_PI弧度代表180角度)
-        //_testLabel.transform = CGAffineTransformRotate(_testLabel.transform, M_PI);
-        
+        CGAffineTransformRotate实现以一个已经存在的形变为基准,将坐标系统逆时针旋转angle弧度(弧度=π/180×角度,M_PI弧度代表180角度)
+        _testLabel.transform = CGAffineTransformRotate(_testLabel.transform, M_PI);
+        */
     }];
     
-    //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-    //        [UIView animateWithDuration:0.25 animations:^{
-    //            _testLabel.transform = CGAffineTransformIdentity;
-    //        }];
-    //    });
-    
+     /*   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [UIView animateWithDuration:0.25 animations:^{
+                _testLabel.transform = CGAffineTransformIdentity;
+            }];
+        });
+    */
     
 }
 //UITextField
@@ -267,32 +267,32 @@
 //UICollectionView
 -(void)test7
 {
-    //自定义Cell时先注册再使用。
-//#pragma mark  定义每个UICollectionView的横向间距
-//    - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
-//    {
-//        return 0;
-//    }
-//    
-//#pragma mark  定义每个UICollectionView的纵向间距
-//    - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
-//    {
-//        return 0;
-//    }
+ /*   自定义Cell时先注册再使用。
+#pragma mark  定义每个UICollectionView的横向间距
+    - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+    {
+        return 0;
+    }
     
-//collectionView:numberOfItemsInSection: //返回每段显示的数据个数
-//collectionView:cellForItemAtIndexPath: // 返回数据的显示cell获取cell必须使用dequeueReusableCellWithReuseIdentifier:forIndexPath:方法，与TableView不同的是，这里不会返回nil，而是必须把cell的类别注册到collectionView供此方法调用，否则会出错。
-//   布局我们使用已经提供的UICollectionViewLayout的子类UICollectionViewFlowLayout，在初始化UICollectionView的时候传入 
-//2.UICollectionViewCell详解 https://cnbin.github.io/blog/2015/09/01/ios-uicollectionview-zong-jie/
-    //2.1 所有自定义View需要加入contentView中。
-    //2.2 实现prepareForReuse对重用cell进行必要清理。http://www.jianshu.com/p/ff96a8e5abdb
-    //cell重用如何提前知道,重写Cell的prepareForReuse当前已经被分配的cell如果被重用了(通常是滚动出屏幕外了),会调用cell的prepareForReuse通知cell.注意这里重写方法的时候,注意一定要调用父类方法[super prepareForReuse] .
+#pragma mark  定义每个UICollectionView的纵向间距
+    - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
+    {
+        return 0;
+    }
     
-    
-    
-    //2.3 prepareLayout 此方法中出全部元素布局所需要的属性并以indexPath为关键字存入字典
+collectionView:numberOfItemsInSection: //返回每段显示的数据个数
+collectionView:cellForItemAtIndexPath: // 返回数据的显示cell获取cell必须使用dequeueReusableCellWithReuseIdentifier:forIndexPath:方法，与TableView不同的是，这里不会返回nil，而是必须把cell的类别注册到collectionView供此方法调用，否则会出错。
+   布局我们使用已经提供的UICollectionViewLayout的子类UICollectionViewFlowLayout，在初始化UICollectionView的时候传入 
+2.UICollectionViewCell详解 https://cnbin.github.io/blog/2015/09/01/ios-uicollectionview-zong-jie/
+    2.1 所有自定义View需要加入contentView中。
+    2.2 实现prepareForReuse对重用cell进行必要清理。http://www.jianshu.com/p/ff96a8e5abdb
+    cell重用如何提前知道,重写Cell的prepareForReuse当前已经被分配的cell如果被重用了(通常是滚动出屏幕外了),会调用cell的prepareForReuse通知cell.注意这里重写方法的时候,注意一定要调用父类方法[super prepareForReuse] .
     
     
+    
+    2.3 prepareLayout 此方法中出全部元素布局所需要的属性并以indexPath为关键字存入字典
+    
+    */
  
 }
 
@@ -341,7 +341,33 @@
     self.navigationController.navigationBar.barTintColor = [UIColor purpleColor];
 }
 
-
+//容器视图控制器
+-(void)test10
+{
+    //http://www.jianshu.com/p/01bd6feb76e8
+    /*容器视图控制器可以将多个视图控制器的内容结合到一个用户界面。容器视图控制器通常用于促进导航和基于现有内容创建新的用户界面。
+      容器视图控制器如同其他任何内容控制器那样管理者一个根视图和一些内容。
+     UIKit唯一的要求就是在容器视图控制器和其他子类视图控制器之间构建一个正式的父子关系。 将每个子视图添加到容器视图控制器中。
+    1.0 构建自定义容器
+        实现一个容器视图控制器,你必须建立视图控制器和其子视图控制器之间的关系。在你视图管理任何子视图控制器的视图前必须建立这些父子关系。
+        这样做让UIKit知道视图控制器在管理子视图的大小和位置，可以在界面构造器中创建或者以编程的方式创建。当以编程的方式创建时,必须显示的添加和删除子视图。作为视图控制器设置的一部分
+      1.1.1 调用容器视图控制器的 addChildViewController 告诉UIKit 容器视图控制器管理子视图控制器的视图。
+      1.1.2 删除子视图控制器  removeFromParentViewController方法删除父子关系。
+      1.1.3   删除子视图控制器会永久删除父视图和子视图之间的关系。当你不再需要它时，删除子视图控制器。例如，当新视图控制器push到导航堆栈时，导航控制器不移除当前子视图控制器。只有当他们被pop出栈时才会被删除。
+    2.0 构建容器视图控制器
+        2.1 只访问子视图控制器的根视图。容器应该只访问每个子视图控制器的根视图，即返回子视图的视图属性。它不应该访问子视图控制器的其他视图。
+        2.2 子视图控制器不用了解容器。子视图控制器应该关注自己的内容，如果容器允许其行为被子视图控制器影响。应该使用代理模式来管理这些交互。
+        2.3 优先使用普通视图设计你的容器。使用普通视图（而不是子视图控制器的视图）让你可以测试布局约束和简单环境过渡动画。当普通视图如预期那样工作，移除子视图控制器的视图。
+    3.0：
+      3.1定义控制器容器（Custom Container Controller），它的主要责任是明确怎么给用户呈现他的子元素（即容器内的控制器）
+    4.0 实例讲解： http://blog.csdn.net/wflytoc/article/details/50212091
+      4.0.1 侧边栏 侧边栏菜单是一个子视图控制器的根视图,而中心(侧边栏关闭时我们看到的)视图也是一个子视图控制器的根视图。这两个视图是同时存在的。因此我们可以使用容器视图来管理他们。之后根据情况来调整他们的frame。
+      4.0.2 其实子视图控制器的根视图就是简单的视图UIView,只不过在添加到父视图控制器的根视图可以设置其frame。根据需求随时调整他们dede frame.
+     4.1滚动切换子视图控制器：
+     以腾讯新闻为例子讲解，头部就不再实现了，主要看下如何通过滚动来切换视图，我自己的解决办法是利用UIScrollView，将子视图控制器的根视图添加到上面，通过滚动来切换视图，而头部也是UIScrollView，上面添加按钮，如果点击按钮，可以改变下面UIScrollView的contentOffSet属性来切换视图。
+     */
+    [self addChildViewController:nil];
+}
 -(void)setPreferredContentSize:(CGSize)preferredContentSize
 {
     super.preferredContentSize = preferredContentSize;
