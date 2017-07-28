@@ -43,16 +43,11 @@
     }];
     self.testButton = testButton;
     
-
    // [self test5];
     [self test8];
     
     NSLog(@"self.view.subviews.count: %zd",self.view.subviews.count);
     NSLog(@"self.view.subviews: %@",self.view.subviews);
-
-    [self test5];
-    [self test9];
-
 }
 
 -(void)test1
@@ -253,14 +248,6 @@
              1)- (void)scrollViewDidScroll:(UIScrollView *)scrollView
                这个方法在任何方式触发contentOffset变化的时候都会被调用(包括用户拖动,减速过程,直接通过代码设置等)
                 可以用于监控contentOffset的变化,并根据当前contentOffset对其他View做出随动调整。
-             2) scrollViewWillEndDragging: withVelocity: targetContentOffset:
-               通过修改targetContentOffset直接修改目标offset为整数页位置。
-            3）重用机制：
-                 3.1）维护一个重用队列
-                 3.2）当元素离开可见范围时,removeFromSuperView并加入重用队列(queue)
-                 3.3)当需要加入新的元素时，先尝试从重用队列中获取可重用的元素并且从可重用的元素队列中移除。
-                 3.4）如果队列为空，新建元素。
-                 
      */
 }
 
@@ -430,33 +417,6 @@
     [self.view endEditing:YES];
 }
 
-//UINavigationController
--(void)test9
-{
-    /*
-     1.1 UINavigationBar类提供一种对导航栏层级内容的控制,他是一个栏，最典型的用法是用在屏幕的顶端，
-     包含着各级视图的导航按钮， http://www.jianshu.com/p/f797793d683f
-      1.1.1 UINavigationBar控制着导航栏的背景色(BarTintColor) 背景图片(backgroundImage) 按钮字体颜色(tintColor)
-            标题文本属性:(titleTextAttributes) 半透明:(translucent)
-     1.2 UINavigationItem对象管理展示在导航栏上的按钮和视图，
-         1.2.1UINavgationController并没有navigationItem这样一个直接属性，由于UINavigationController继承于UIViewController而UINavigationController是有这个属性的。
-          1.2.1 UINavigationItem是一个独特的实例，当视图控制器被推到导航控制器中时,他来代表这个视图控制器
-                当第一次访问这个属性的时候它被创建，因此如果你并没有用导航控制器来管理视图控制器，那你不应该访问这个属性。为确保NavigationItem已经配置，你可以在视图控制器中初始化 重写这个属性。创建BarButtonItem。
-             1.2.2 UINavigationItem有leftBarButtonitem（leftBarButtonItems）和rightBarButtonItem（rightBarButtonItems）
-                    每个属性都可以赋值装有一个UIBarButtonItem对象的数组。
-                 1.2.2.1    UIBarButtonItem是专门给UIToolBar和UINavigationBar定制的类似button的类。
-     
-     1.3 UINavgationController是一个特殊的视图容器。
-     1.4 让滑动返回手势有效 http://www.jianshu.com/p/31f177158c9e
-         1.4.1 如果使用自定义的按钮去替换系统默认的返回按钮,就会出现滑动返回手势失效的问题。解决办法:只需要重新添加导航栏的interactivePopGestureRecognizer的delegate即可。
-                 首先为ViewContoller添加UIGestureRecognizerDelegate协议
-                  设置代理self.navigationController.interactivePopGestureRecognizer.delegate = self;
-     
-     */
-    
-    self.navigationItem.title = @"测试导航栏";
-    self.navigationController.navigationBar.barTintColor = [UIColor purpleColor];
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

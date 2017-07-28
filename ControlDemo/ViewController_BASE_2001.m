@@ -43,16 +43,7 @@
     }];
     self.testButton = testButton;
     
-
-   // [self test5];
-    [self test8];
-    
-    NSLog(@"self.view.subviews.count: %zd",self.view.subviews.count);
-    NSLog(@"self.view.subviews: %@",self.view.subviews);
-
     [self test5];
-    [self test9];
-
 }
 
 -(void)test1
@@ -138,7 +129,7 @@
 
 -(void)onClick
 {
-    //[self test4];
+    [self test4];
 }
 
 //UIAlertController
@@ -253,76 +244,16 @@
              1)- (void)scrollViewDidScroll:(UIScrollView *)scrollView
                这个方法在任何方式触发contentOffset变化的时候都会被调用(包括用户拖动,减速过程,直接通过代码设置等)
                 可以用于监控contentOffset的变化,并根据当前contentOffset对其他View做出随动调整。
-             2) scrollViewWillEndDragging: withVelocity: targetContentOffset:
-               通过修改targetContentOffset直接修改目标offset为整数页位置。
-            3）重用机制：
-                 3.1）维护一个重用队列
-                 3.2）当元素离开可见范围时,removeFromSuperView并加入重用队列(queue)
-                 3.3)当需要加入新的元素时，先尝试从重用队列中获取可重用的元素并且从可重用的元素队列中移除。
-                 3.4）如果队列为空，新建元素。
-                 
      */
 }
 
-//UICollectionView
--(void)test7
-{
-    //自定义Cell时先注册再使用。
-//#pragma mark  定义每个UICollectionView的横向间距
-//    - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
-//    {
-//        return 0;
-//    }
-//    
-//#pragma mark  定义每个UICollectionView的纵向间距
-//    - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
-//    {
-//        return 0;
-//    }
-    
-//collectionView:numberOfItemsInSection: //返回每段显示的数据个数
-//collectionView:cellForItemAtIndexPath: // 返回数据的显示cell获取cell必须使用dequeueReusableCellWithReuseIdentifier:forIndexPath:方法，与TableView不同的是，这里不会返回nil，而是必须把cell的类别注册到collectionView供此方法调用，否则会出错。
-//   布局我们使用已经提供的UICollectionViewLayout的子类UICollectionViewFlowLayout，在初始化UICollectionView的时候传入 
-//2.UICollectionViewCell详解 https://cnbin.github.io/blog/2015/09/01/ios-uicollectionview-zong-jie/
-    //2.1 所有自定义View需要加入contentView中。
-    //2.2 实现prepareForReuse对重用cell进行必要清理。http://www.jianshu.com/p/ff96a8e5abdb
-    //cell重用如何提前知道,重写Cell的prepareForReuse当前已经被分配的cell如果被重用了(通常是滚动出屏幕外了),会调用cell的prepareForReuse通知cell.注意这里重写方法的时候,注意一定要调用父类方法[super prepareForReuse] .
-    
-    
-    
-    //2.3 prepareLayout 此方法中出全部元素布局所需要的属性并以indexPath为关键字存入字典
-    
-    
- 
-}
 
--(void)test8
-{
-    /*
-     * addSubView 和 insertSubview 区别
-     * 子视图是以栈的方式存放的。
-     * 每次addSubView时都是在最后面添加。每次在addsubview前和addsubview后可以看看[self.view.subViews count]；
-     * self.view addSubView:xx.View 等同于 self.view insertSubView:xx.View atIndex:self.view.subViews.count
-     * 即在最底层增加View
-     *addSubview是一层一层往上加，新加的只能放到最上层，
-     *insertSubView可以控制将view添加到指定的层。
-     */
-    
-    UILabel *label8 = [[UILabel alloc]init];
-    label8.text = @"label8";
-    [self.view addSubview:label8];
-}
 
--(void)test9
-{
-    UINavigationBar
-}
 
 -(void)setPreferredContentSize:(CGSize)preferredContentSize
 {
     super.preferredContentSize = preferredContentSize;
 }
-
 
 
 #pragma mark - **************** UIPopoverPresentationControllerDelegate
@@ -430,33 +361,6 @@
     [self.view endEditing:YES];
 }
 
-//UINavigationController
--(void)test9
-{
-    /*
-     1.1 UINavigationBar类提供一种对导航栏层级内容的控制,他是一个栏，最典型的用法是用在屏幕的顶端，
-     包含着各级视图的导航按钮， http://www.jianshu.com/p/f797793d683f
-      1.1.1 UINavigationBar控制着导航栏的背景色(BarTintColor) 背景图片(backgroundImage) 按钮字体颜色(tintColor)
-            标题文本属性:(titleTextAttributes) 半透明:(translucent)
-     1.2 UINavigationItem对象管理展示在导航栏上的按钮和视图，
-         1.2.1UINavgationController并没有navigationItem这样一个直接属性，由于UINavigationController继承于UIViewController而UINavigationController是有这个属性的。
-          1.2.1 UINavigationItem是一个独特的实例，当视图控制器被推到导航控制器中时,他来代表这个视图控制器
-                当第一次访问这个属性的时候它被创建，因此如果你并没有用导航控制器来管理视图控制器，那你不应该访问这个属性。为确保NavigationItem已经配置，你可以在视图控制器中初始化 重写这个属性。创建BarButtonItem。
-             1.2.2 UINavigationItem有leftBarButtonitem（leftBarButtonItems）和rightBarButtonItem（rightBarButtonItems）
-                    每个属性都可以赋值装有一个UIBarButtonItem对象的数组。
-                 1.2.2.1    UIBarButtonItem是专门给UIToolBar和UINavigationBar定制的类似button的类。
-     
-     1.3 UINavgationController是一个特殊的视图容器。
-     1.4 让滑动返回手势有效 http://www.jianshu.com/p/31f177158c9e
-         1.4.1 如果使用自定义的按钮去替换系统默认的返回按钮,就会出现滑动返回手势失效的问题。解决办法:只需要重新添加导航栏的interactivePopGestureRecognizer的delegate即可。
-                 首先为ViewContoller添加UIGestureRecognizerDelegate协议
-                  设置代理self.navigationController.interactivePopGestureRecognizer.delegate = self;
-     
-     */
-    
-    self.navigationItem.title = @"测试导航栏";
-    self.navigationController.navigationBar.barTintColor = [UIColor purpleColor];
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

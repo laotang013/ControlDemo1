@@ -43,16 +43,8 @@
     }];
     self.testButton = testButton;
     
-
-   // [self test5];
-    [self test8];
-    
-    NSLog(@"self.view.subviews.count: %zd",self.view.subviews.count);
-    NSLog(@"self.view.subviews: %@",self.view.subviews);
-
     [self test5];
     [self test9];
-
 }
 
 -(void)test1
@@ -138,7 +130,7 @@
 
 -(void)onClick
 {
-    //[self test4];
+    [self test4];
 }
 
 //UIAlertController
@@ -264,65 +256,13 @@
      */
 }
 
-//UICollectionView
--(void)test7
-{
-    //自定义Cell时先注册再使用。
-//#pragma mark  定义每个UICollectionView的横向间距
-//    - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
-//    {
-//        return 0;
-//    }
-//    
-//#pragma mark  定义每个UICollectionView的纵向间距
-//    - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
-//    {
-//        return 0;
-//    }
-    
-//collectionView:numberOfItemsInSection: //返回每段显示的数据个数
-//collectionView:cellForItemAtIndexPath: // 返回数据的显示cell获取cell必须使用dequeueReusableCellWithReuseIdentifier:forIndexPath:方法，与TableView不同的是，这里不会返回nil，而是必须把cell的类别注册到collectionView供此方法调用，否则会出错。
-//   布局我们使用已经提供的UICollectionViewLayout的子类UICollectionViewFlowLayout，在初始化UICollectionView的时候传入 
-//2.UICollectionViewCell详解 https://cnbin.github.io/blog/2015/09/01/ios-uicollectionview-zong-jie/
-    //2.1 所有自定义View需要加入contentView中。
-    //2.2 实现prepareForReuse对重用cell进行必要清理。http://www.jianshu.com/p/ff96a8e5abdb
-    //cell重用如何提前知道,重写Cell的prepareForReuse当前已经被分配的cell如果被重用了(通常是滚动出屏幕外了),会调用cell的prepareForReuse通知cell.注意这里重写方法的时候,注意一定要调用父类方法[super prepareForReuse] .
-    
-    
-    
-    //2.3 prepareLayout 此方法中出全部元素布局所需要的属性并以indexPath为关键字存入字典
-    
-    
- 
-}
 
--(void)test8
-{
-    /*
-     * addSubView 和 insertSubview 区别
-     * 子视图是以栈的方式存放的。
-     * 每次addSubView时都是在最后面添加。每次在addsubview前和addsubview后可以看看[self.view.subViews count]；
-     * self.view addSubView:xx.View 等同于 self.view insertSubView:xx.View atIndex:self.view.subViews.count
-     * 即在最底层增加View
-     *addSubview是一层一层往上加，新加的只能放到最上层，
-     *insertSubView可以控制将view添加到指定的层。
-     */
-    
-    UILabel *label8 = [[UILabel alloc]init];
-    label8.text = @"label8";
-    [self.view addSubview:label8];
-}
 
--(void)test9
-{
-    UINavigationBar
-}
 
 -(void)setPreferredContentSize:(CGSize)preferredContentSize
 {
     super.preferredContentSize = preferredContentSize;
 }
-
 
 
 #pragma mark - **************** UIPopoverPresentationControllerDelegate
